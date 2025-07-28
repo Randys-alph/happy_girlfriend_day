@@ -1,0 +1,74 @@
+/* General Styling */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #FFD1E3, #FFF0F5); overflow: hidden; }
+.container { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; position: relative; z-index: 1; }
+.instruction-text { margin-top: 40px; color: #C71585; font-size: 16px; opacity: 1; transition: opacity 0.5s ease; }
+.instruction-text.hidden { opacity: 0; }
+
+/* Flower Styling */
+.flower-container { position: relative; width: 250px; height: 250px; transition: transform 1s ease, opacity 1s ease; }
+.flower-center { position: absolute; width: 80px; height: 80px; background: #FFD700; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
+
+/* [PERBAIKAN] Menambahkan z-index dan mengubah penataan flexbox */
+.petal {
+    position: absolute;
+    width: 100px;
+    height: 120px;
+    background: #FF69B4;
+    border: 2px solid #FF1493;
+    border-radius: 50% 0;
+    top: 50%;
+    left: 50%;
+    transform-origin: 50% 100%;
+    cursor: pointer;
+    transition: all 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    z-index: 5; /* 1. Agar kelopak berada di bawah pusat kuning (z-index: 10) */
+    display: flex;
+    justify-content: center; /* Jaga agar angka di tengah horizontal */
+    align-items: flex-start; /* 2. Pindahkan angka ke bagian atas/ujung kelopak */
+    padding-top: 10px;
+}
+
+/* Positioning each petal in a circle */
+#petal-1 { transform: translate(-50%, -100%) rotate(0deg); }
+#petal-2 { transform: translate(-50%, -100%) rotate(45deg); }
+#petal-3 { transform: translate(-50%, -100%) rotate(90deg); }
+#petal-4 { transform: translate(-50%, -100%) rotate(135deg); }
+#petal-5 { transform: translate(-50%, -100%) rotate(180deg); }
+#petal-6 { transform: translate(-50%, -100%) rotate(225deg); }
+#petal-7 { transform: translate(-50%, -100%) rotate(270deg); }
+#petal-8 { transform: translate(-50%, -100%) rotate(315deg); }
+
+/* Styling untuk nomor di dalam kelopak */
+.petal span {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    transform: rotate(var(--rotation)); /* Variabel untuk rotasi balik */
+}
+
+.petal.plucked { opacity: 0; transform: translate(-50%, -400%) rotate(var(--random-rotate)) scale(0.5); }
+
+/* Animasi getar untuk klik yang salah */
+.shake {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+@keyframes shake {
+  10%, 90% { transform: var(--original-transform) translate3d(-1px, 0, 0); }
+  20%, 80% { transform: var(--original-transform) translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: var(--original-transform) translate3d(-4px, 0, 0); }
+  40%, 60% { transform: var(--original-transform) translate3d(4px, 0, 0); }
+}
+
+/* Message & Final Reveal Styling */
+.message-display { position: fixed; top: 20%; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.8); padding: 15px 25px; border-radius: 20px; font-size: 18px; color: #C71585; z-index: 20; opacity: 0; transition: opacity 0.5s ease; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.message-display.visible { opacity: 1; }
+.final-reveal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 240, 245, 0.95); backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center; text-align: center; z-index: 100; opacity: 0; visibility: hidden; transition: opacity 1s ease, visibility 1s ease; padding: 20px; }
+.final-reveal.visible { opacity: 1; visibility: visible; }
+.final-content { animation: fadeInContent 1s forwards; opacity: 0; animation-delay: 0.5s; }
+.final-content h2 { font-family: 'Playfair Display', serif; font-size: 32px; color: #D81B60; margin-bottom: 10px; }
+.final-content p { color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 25px; }
+.final-content img { max-width: 80%; height: auto; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); margin-bottom: 25px; }
+.final-content .love-note { font-style: italic; color: #D81B60; font-size: 18px; }
+@keyframes fadeInContent { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
