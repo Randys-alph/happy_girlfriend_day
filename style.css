@@ -87,3 +87,20 @@ body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #
 .final-content img { max-width: 80%; height: auto; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); margin-bottom: 25px; }
 .final-content .love-note { font-style: italic; color: #D81B60; font-size: 18px; }
 @keyframes fadeInContent { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 38px;
+        top: -20px;
+        margin-bottom: 30px;
+    }
+
+    .instruction-text {
+        font-size: 14px;
+        margin-top: 10px;
+    }
+    
+    .final-content h2 {
+        font-size: 36px;
+    }
+}
