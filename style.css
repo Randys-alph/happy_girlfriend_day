@@ -1,35 +1,61 @@
 /* General Styling */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #FFD1E3, #FFF0F5); overflow: hidden; }
-.container { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; position: relative; z-index: 1; }
-.instruction-text { margin-top: 40px; color: #C71585; font-size: 16px; opacity: 1; transition: opacity 0.5s ease; }
-.instruction-text.hidden { opacity: 0; }
+.container { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; position: relative; z-index: 1; padding-bottom: 50px; /* Beri ruang di bawah */ }
 
-/* Flower Styling */
-.flower-container { position: relative; width: 250px; height: 250px; transition: transform 1s ease, opacity 1s ease; }
-.flower-center { position: absolute; width: 80px; height: 80px; background: #FFD700; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
-
-/* [PERBAIKAN] Menambahkan z-index dan mengubah penataan flexbox */
-.petal {
-    position: absolute;
-    width: 100px;
-    height: 120px;
-    background: #FF69B4;
-    border: 2px solid #FF1493;
-    border-radius: 50% 0;
-    top: 50%;
-    left: 50%;
-    transform-origin: 50% 100%;
-    cursor: pointer;
-    transition: all 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    z-index: 5; /* 1. Agar kelopak berada di bawah pusat kuning (z-index: 10) */
-    display: flex;
-    justify-content: center; /* Jaga agar angka di tengah horizontal */
-    align-items: flex-start; /* 2. Pindahkan angka ke bagian atas/ujung kelopak */
-    padding-top: 10px;
+/* [BARU] Styling untuk judul utama */
+.main-title {
+    font-family: 'Dancing Script', cursive;
+    color: #C71585;
+    font-size: 48px; /* Ukuran bisa disesuaikan */
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+    top: -50px; /* Posisikan sedikit ke atas */
 }
 
-/* Positioning each petal in a circle */
+.main-title .letter {
+    display: inline-block;
+    opacity: 0; /* Mulai dengan transparan */
+    transform: translateY(-20px);
+    animation: fadeInLetter 0.5s forwards;
+}
+
+/* [BARU] Keyframes untuk animasi huruf */
+@keyframes fadeInLetter {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.instruction-text {
+    margin-top: 20px;
+    color: #C71585;
+    font-size: 16px;
+    opacity: 0; /* [UBAH] Mulai dengan transparan */
+    transition: opacity 1s ease 1s; /* Transisi muncul */
+}
+
+/* Flower Styling */
+.flower-container {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    transition: opacity 1s ease 1s, transform 1s ease; /* Transisi muncul */
+    opacity: 0; /* [UBAH] Mulai dengan transparan */
+}
+
+/* [BARU] Class untuk memunculkan bunga dan instruksi */
+.flower-container.visible,
+.instruction-text.visible {
+    opacity: 1;
+}
+
+.flower-center { position: absolute; width: 80px; height: 80px; background: #FFD700; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
+
+.petal { position: absolute; width: 100px; height: 120px; background: #FF69B4; border: 2px solid #FF1493; border-radius: 50% 0; top: 50%; left: 50%; transform-origin: 50% 100%; cursor: pointer; transition: all 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55); z-index: 5; display: flex; justify-content: center; align-items: flex-start; padding-top: 10px; }
 #petal-1 { transform: translate(-50%, -100%) rotate(0deg); }
 #petal-2 { transform: translate(-50%, -100%) rotate(45deg); }
 #petal-3 { transform: translate(-50%, -100%) rotate(90deg); }
@@ -39,21 +65,10 @@ body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #
 #petal-7 { transform: translate(-50%, -100%) rotate(270deg); }
 #petal-8 { transform: translate(-50%, -100%) rotate(315deg); }
 
-/* Styling untuk nomor di dalam kelopak */
-.petal span {
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    transform: rotate(var(--rotation)); /* Variabel untuk rotasi balik */
-}
-
+.petal span { font-size: 24px; font-weight: bold; color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transform: rotate(var(--rotation)); }
 .petal.plucked { opacity: 0; transform: translate(-50%, -400%) rotate(var(--random-rotate)) scale(0.5); }
 
-/* Animasi getar untuk klik yang salah */
-.shake {
-    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-}
+.shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
 @keyframes shake {
   10%, 90% { transform: var(--original-transform) translate3d(-1px, 0, 0); }
   20%, 80% { transform: var(--original-transform) translate3d(2px, 0, 0); }
@@ -61,9 +76,9 @@ body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #
   40%, 60% { transform: var(--original-transform) translate3d(4px, 0, 0); }
 }
 
-/* Message & Final Reveal Styling */
 .message-display { position: fixed; top: 20%; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.8); padding: 15px 25px; border-radius: 20px; font-size: 18px; color: #C71585; z-index: 20; opacity: 0; transition: opacity 0.5s ease; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
 .message-display.visible { opacity: 1; }
+
 .final-reveal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 240, 245, 0.95); backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center; text-align: center; z-index: 100; opacity: 0; visibility: hidden; transition: opacity 1s ease, visibility 1s ease; padding: 20px; }
 .final-reveal.visible { opacity: 1; visibility: visible; }
 .final-content { animation: fadeInContent 1s forwards; opacity: 0; animation-delay: 0.5s; }
